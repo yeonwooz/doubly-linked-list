@@ -1,6 +1,7 @@
 //  C 이중연결리스트
 #include <stdio.h>
 #include <stdlib.h>
+// #define TEST 1
 
 typedef struct listNode {
     int Data;
@@ -22,7 +23,7 @@ void deleteNode(Node *Node) {
     free(Node);
 }
 
-Node *getNodeAt(Node head, int index) {  // 찾으려는 인덱스 index (몇번째로 연결된 요소인지)
+Node *getNodeAt(Node *head, int index) {  // 찾으려는 인덱스 index (몇번째로 연결된 요소인지)
     Node *horse = head;
     int count = 0;  
 
