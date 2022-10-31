@@ -57,9 +57,62 @@ void addNode(Node **head, Node *newNode) {  // head 자체를 업데이트해주
 
     // list exists
     else {
-        // 맨 앞에 추가 
-        head -> prev = newNode;
-        newNode -> Next = head;
-        head -> Data = newNode -> Data;
+        Node *horse = (*head);
+
+        while (horse -> Next  != NULL) {
+            horse = horse -> Next;
+        }
+        horse->Next = newNode;
+        newNode->Prev = horse;
     }
 }
+
+        // // 맨 앞에 추가 
+        // head -> prev = newNode;
+        // newNode -> Next = head;
+        // head -> Data = newNode -> Data; ???
+
+void insertAfter(Node * Current, Node *newNode) {
+
+    // head
+    if (Current->Prev == NULL && Current->Next == NULL) {
+        Current->Next = newNode;
+        newNode->Prev = Current;
+    }
+
+    // not head
+        // if tail
+    if (Current->Next == NULL) {
+        Current->Next = newNode;
+        newNode->Prev = Current;
+    }
+    else {
+        // if middle
+        Current->Next->Prev = newNode;
+        newNode->Prev = Current;
+        newNode->Next = Current->Next;
+        Current->Next = newNode;
+    }
+}
+
+void removeNode(Node **head, Node *remove) {
+
+    // if remove is head
+    if (*head == remove) {
+        *head = remove -> Next;
+    }
+
+    // if remove is middle (when remove has next link to go)
+    if (remove->Next != NULL) {
+        remove->Next->Prev = remove->Prev;
+    }
+
+    // (when remove has prev link to go)
+    if (remove->Prev != NULL) {
+        remove->Prev->Next = remove->Next;
+    }
+
+    deleteNode(remove);
+}
+
+// https://www.youtube.com/watch?v=iSdEHxVJ5vk
